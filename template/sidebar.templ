@@ -1,0 +1,36 @@
+package template
+
+templ sidebar() {
+	<div x-data="{ open: false, pin: false }">
+		<button @click="open = true" class="fixed top-8 right-8 text-white opacity-80 hover:opacity-100">
+			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+		</button>
+		<template x-teleport="body">
+			<div
+				x-show="open"
+				@keydown.window.escape="if (pin) return; open = false"
+				class="relative z-[99]"
+			>
+				<div x-show="open === true && pin === false" @click="if (pin) return; open = false" class="fixed inset-0"></div>
+				<div
+					@click.away="if (pin) return; open = false"
+					class="overflow-y-scroll bg-muted w-[480px] fixed top-0 right-0 h-screen"
+				>
+					<div id="all-items" class="p-20 space-y-3">
+						<div class="only:hidden block pb-4">
+							<p class="text-2xl text-white font-bold">Items</p>
+						</div>
+					</div>
+					<button @click="pin = !pin" class="fixed bottom-8 right-8 text-white opacity-80 hover:opacity-100">
+						<template x-if="pin">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pin-off"><path d="M12 17v5"></path><path d="M15 9.34V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H7.89"></path><path d="m2 2 20 20"></path><path d="M9 9v1.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h11"></path></svg>
+						</template>
+						<template x-if="!pin">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pin"><path d="M12 17v5"></path><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"></path></svg>
+						</template>
+					</button>
+				</div>
+			</div>
+		</template>
+	</div>
+}
